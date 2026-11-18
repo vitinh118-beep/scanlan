@@ -2,7 +2,7 @@ import type { AgentDevice } from '../../core/domain/types';
 
 export const AGENT_PORT = 47800;
 export const AGENT_BASE = `http://127.0.0.1:${AGENT_PORT}/api/v1`;
-export const AGENT_DOWNLOAD_URL = 'https://github.com/hachihi/hachihi-network-tool/releases'; // TODO: cập nhật URL repo thật
+export const AGENT_DOWNLOAD_URL = 'https://github.com/vitinh118-beep/scanlan/actions/workflows/agent-release.yml';
 
 export interface AgentHealth { agentVersion: string; protocolVersion: number; status: string; paired: boolean; platform: string; capabilities: string[] }
 export interface AgentInterface { interfaceId: string; name: string; status: string; ipv4?: string; subnetCidr?: string; gateway?: string; dnsServers: string[]; isWifi: boolean }
