@@ -11,3 +11,7 @@ Web (React + TS + Vite PWA) + Windows Agent (.NET, 127.0.0.1:47800).
 ## Deploy Vercel
 Root Directory `apps/web`, Framework Vite, Build `npm run build`, Output `dist`.
 Thêm domain Vercel vào `AllowedOrigins` trong `agent/src/Hachihi.Agent.Host/appsettings.json`.
+
+## Agent .exe (không cần cài .NET)
+GitHub → Actions → "Build Windows Agent" → Run workflow → tải artifact `hachihi-agent-win-x64`.
+Giải nén, sửa `appsettings.json` (AllowedOrigins = domain Vercel của bạn), bấm đúp `hachihi-agent.exe`.
