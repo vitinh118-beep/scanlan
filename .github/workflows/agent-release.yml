@@ -1,0 +1,27 @@
+name: Build Windows Agent
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+    paths: ['agent/**']
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: '8.0.x' }
+      - name: Publish single-file exe
+        run: >
+          dotnet publish agent/src/Hachihi.Agent.Host/Hachihi.Agent.Host.csproj -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o out
+      - name: Zip
+        run: Compress-Archive -Path out\* -DestinationPath hachihi-agent-win-x64.zip
+      - uses: actions/upload-artifact@v4
+        with: { name: hachihi-agent-win-x64, path: hachihi-agent-win-x64.zip }
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with: { files: hachihi-agent-win-x64.zip }
